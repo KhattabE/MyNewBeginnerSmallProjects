@@ -16,40 +16,40 @@ public class Assignment {
     }
 
     //Getter method to make the field readable
-    public String getTitle(){
+    public String getTitle() {
         return this.title;
     }
 
-    public String getSubject(){
+    public String getSubject() {
         return this.subject;
     }
 
-    public String getDueDate(){
+    public String getDueDate() {
         return this.dueDate;
     }
 
-    public boolean getIsCompleted(){
+    public boolean getIsCompleted() {
         return this.isCompleted;
     }
 
     //Setter method to make the field writable
-    void setTitle(String title){
+    void setTitle(String title) {
         this.title = title;
     }
 
-    void setSubject(String subject){
+    void setSubject(String subject) {
         this.subject = subject;
     }
 
-    void setDueDate(String dueDate){
+    void setDueDate(String dueDate) {
         this.dueDate = dueDate;
     }
 
-    void setCompleted(boolean isCompleted){
+    void setCompleted(boolean isCompleted) {
         this.isCompleted = isCompleted;
     }
 
-    String displayAssignmentInfo(){
+    String displayAssignmentInfo() {
         return "Assignment title: " + this.title + "\nAssignment subject: " + this.subject +
                 "\nAssignment submission date: " + this.dueDate +
                 "\nAssignment completed?: " + isCompleted;
