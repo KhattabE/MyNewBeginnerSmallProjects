@@ -14,9 +14,9 @@ public class Course {
 
     }
 
-
+    //A method with string return type, to show course description
     String courseDescription(){
-        return courseCode + " " + courseName + " - " + "Course Instructor: " + courseInstructor;
+        return courseCode + " " + courseName + " - " + "\nCourse Instructor: " + courseInstructor;
     }
 
 
