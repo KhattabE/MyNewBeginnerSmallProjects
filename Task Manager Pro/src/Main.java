@@ -5,7 +5,7 @@ public class Main {
 
 
     //An arrayList to store tasks in (Empty in the beginning)
-    ArrayList<Task> tasks = new ArrayList<>();
+    static ArrayList<Task> tasks = new ArrayList<>();
 
 
     public static void main(String[] args) {
@@ -55,49 +55,24 @@ public class Main {
 
         //A while loop to allow the user to get back and from the menu as long as the user does not decide to quit
         while (menuChoice != 5) {
-            System.out.print("Here are the following options you got: ");
+            System.out.println("Here are the following options you got: ");
             System.out.println("Option 1: Add Task");
             System.out.println("Option 2: View All Tasks");
             System.out.println("Option 3: Mark Task as Completed!");
             System.out.println("Option 4: Remove Task");
             System.out.println("Option 5 Exit: ");
+            System.out.print("Enter your choice(1-5): ");
             menuChoice = scanner.nextInt();
             scanner.nextLine();
-        }
+            System.out.println("------------------------------------------------------------------------------");
 
-        //Will do a switch case here for the menu
+            //Will do a switch case here for the menu
+            switch (menuChoice) {
 
+                //Method calling addTask()
+                case 1 -> addTask(scanner);
 
-    }
-
-    //Method that contains the task adding section
-    void addTask(Scanner scanner) {
-
-        //Scanner to get the amount of tasks the user wants to add, i will limit it to 3
-        System.out.print("Enter the amount of tasks you want to add(Max 3): ");
-        int amountOfTasks = scanner.nextInt();
-        scanner.nextLine();
-
-        //For loop to get the information about the tasks (to add them to the array later)
-        for (int i = 0; i < amountOfTasks; i++) {
-
-            System.out.print("Enter Task Title: ");
-            String taskTitle = scanner.nextLine();
-            System.out.println(taskTitle + " have been added");
-
-            System.out.print("Enter Task due date:");
-            String dueDate = scanner.nextLine();
-            System.out.print(dueDate + " have been added");
-
-            System.out.println("Enter Task priority(high, medium, low): ");
-            String taskPriority = scanner.nextLine();
-
-            //An if statement with boolean expressions to make sure the user only will be able to choose one of the 3 options
-            if (!taskPriority.equals("high") && !taskPriority.equals("medium") && !taskPriority.equals("low")) {
-                System.out.print("Enter one of the 3 valid options!(high, medium, low): ");
-                taskPriority = scanner.nextLine();
-            } else {
-                System.out.println(taskPriority + " have been added");
+                case 2 -> viewTasks();
             }
 
         }
@@ -105,5 +80,84 @@ public class Main {
 
     }
 
+    //Method that contains the task adding section
+    static void addTask(Scanner scanner) {
+
+        //Scanner to get the amount of tasks the user wants to add, i will limit it to 3
+        System.out.print("Enter the amount of tasks you want to add(Max 3): ");
+        int amountOfTasks = scanner.nextInt();
+        scanner.nextLine();
+        System.out.println("------------------------------------------------------------------------------");
+
+        //For loop to get the information about the tasks (to add them to the array later)
+        for (int i = 0; i < amountOfTasks; i++) {
+
+            System.out.print("Enter Task Title: ");
+            String taskTitle = scanner.nextLine();
+            System.out.println(taskTitle + " have been added");
+            System.out.println("------------------------------------------------------------------------------");
+
+            System.out.print("Enter Task due date: ");
+            String dueDate = scanner.nextLine();
+            System.out.println(dueDate + " have been added");
+            System.out.println("------------------------------------------------------------------------------");
+
+            System.out.print("Enter Task priority(high, medium, low): ");
+            String taskPriority = scanner.nextLine();
+
+            //A while loop with boolean expressions to make sure the user only will be able to choose one of the 3 options
+            while (!taskPriority.equalsIgnoreCase("high") && !taskPriority.equalsIgnoreCase("medium")
+                    && !taskPriority.equalsIgnoreCase("low")) {
+                System.out.print("Enter one of the 3 valid options!(high, medium, low): ");
+                taskPriority = scanner.nextLine();
+            }
+            System.out.println(taskPriority + " have been added");
+            System.out.println("------------------------------------------------------------------------------");
+
+            boolean isTaskCompleted = false;
+            System.out.print("Enter (yes) if task completed, (no) if not: ");
+            String taskCompleted = scanner.nextLine();
+
+            if (taskCompleted.equalsIgnoreCase("Yes")) {
+                isTaskCompleted = true;
+                System.out.println("The task has been completed!");
+                System.out.println("------------------------------------------------------------------------------");
+            } else if (taskCompleted.equalsIgnoreCase("No")) {
+                System.out.println("The task has NOT ben completed!");
+                System.out.println("------------------------------------------------------------------------------");
+            }
+
+            //Creates a task object, that takes the info from the user, and assigns them to the Task class fields(Variables)
+            Task tasksFromUserInput = new Task(taskTitle, dueDate, taskPriority, isTaskCompleted);
+            //Adds the tasks we got from the user, into the arraylist
+            tasks.add(tasksFromUserInput);
+
+        }
+    }
+
+    static void viewTasks() {
+        //Loops through the arrayList to display the stored task information form user input
+        for (Task t : tasks) {
+            System.out.println("Here are the task information:");
+            System.out.println(t);
+            System.out.println("------------------------------------------------------------------------------");
+        }
+        if (tasks.isEmpty()) {
+            System.out.println("Nothing have been added to the list yet!");
+            System.out.println("------------------------------------------------------------------------------");
+        }
+
+
+    }
+
 
 }
+
+
+
+
+
+
+
+
+
