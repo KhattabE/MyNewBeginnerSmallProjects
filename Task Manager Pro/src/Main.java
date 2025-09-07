@@ -73,6 +73,12 @@ public class Main {
                 case 1 -> addTask(scanner);
 
                 case 2 -> viewTasks();
+
+                case 3 -> completeTask(scanner);
+
+                case 4 -> deleteTask(scanner);
+
+                case 5 -> System.exit(0);
             }
 
         }
@@ -137,15 +143,61 @@ public class Main {
 
     static void viewTasks() {
         //Loops through the arrayList to display the stored task information form user input
-        for (Task t : tasks) {
+        for (int i = 0; i < tasks.size(); i++) {
             System.out.println("Here are the task information:");
-            System.out.println(t);
+            System.out.println("[" + (i + 1) + "] " + tasks.get(i));
             System.out.println("------------------------------------------------------------------------------");
         }
         if (tasks.isEmpty()) {
             System.out.println("Nothing have been added to the list yet!");
             System.out.println("------------------------------------------------------------------------------");
         }
+    }
+
+    static void completeTask(Scanner scanner) {
+        if (tasks.isEmpty()) {
+            System.out.println("Nothing have been added to the list yet!");
+            System.out.println("------------------------------------------------------------------------------");
+        }
+
+        //Method calling viewTasks()
+        viewTasks();
+
+        System.out.print("Enter the task you want marked as completed: ");
+        int markAsCompleted = scanner.nextInt();
+        scanner.nextLine();
+        while (markAsCompleted > tasks.size() || (markAsCompleted < 1)) {
+            System.out.print("Enter a valid amount (" + tasks.size() + "): ");
+            markAsCompleted = scanner.nextInt();
+            scanner.nextLine();
+        }
+
+        Task selectedTask = tasks.get(markAsCompleted - 1);
+        selectedTask.setIsCompleted(true);
+        System.out.println("Task \"" + selectedTask.getTitle() + "\" has been marked as completed!");
+    }
+
+    static void deleteTask(Scanner scanner) {
+        if (tasks.isEmpty()) {
+            System.out.println("Nothing have been added to the list yet!");
+            System.out.println("------------------------------------------------------------------------------");
+        }
+
+        //Method calling viewTasks()
+        viewTasks();
+
+        System.out.print("Enter the task you want to remove: ");
+        int numberOfTheTaskToRemove= scanner.nextInt();
+        scanner.nextLine();
+        while (numberOfTheTaskToRemove > tasks.size() || (numberOfTheTaskToRemove < 1)) {
+            System.out.print("Enter a valid amount (" + tasks.size() + "): ");
+            numberOfTheTaskToRemove = scanner.nextInt();
+            scanner.nextLine();
+        }
+
+        Task deleteTheTask = tasks.remove(numberOfTheTaskToRemove - 1);
+        System.out.println(" Task \"" + deleteTheTask.getTitle() + "\" has been removed from your list.");
+
 
 
     }
