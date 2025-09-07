@@ -43,13 +43,16 @@ public class Student {
         this.assignments = assignments;
     }
 
+
     //Method to add assignments
     void addAssignment(Assignment a){
-
+        assignments.add(a);
     }
 
     void displayAllAssignments(){
-
+        for(int i = 0; i < assignments.size(); i++){
+            System.out.println(assignments.get(i).displayAssignmentInfo());
+        }
     }
 
     void displayAssignmentInfo(){
