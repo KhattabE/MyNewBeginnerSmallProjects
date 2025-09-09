@@ -30,28 +30,29 @@ public class Vehicle {
     public String getVehicleColor() {
         return this.vehicleColor = vehicleColor;
     }
-    public boolean isVehicleElectric(){
+
+    public boolean isVehicleElectric() {
         return this.isVehicleElectric = isVehicleElectric;
     }
 
     //Setter method to make the code writeable
-    public void setBrand(String brand){
-            this.brand = brand;
+    public void setBrand(String brand) {
+        this.brand = brand;
     }
 
-    public void setLicensPlate(String licensPlate){
+    public void setLicensPlate(String licensPlate) {
         this.licensPlate = licensPlate;
     }
 
-    public void setVehicleColor(String vehicleColor){
+    public void setVehicleColor(String vehicleColor) {
         this.vehicleColor = vehicleColor;
     }
 
-    public void isVehicleElectric(boolean isVehicleElectric){
+    public void isVehicleElectric(boolean isVehicleElectric) {
         this.isVehicleElectric = isVehicleElectric;
     }
 
-    void displayInfoAboutVehicle(){
+    void displayInfoAboutVehicle() {
         System.out.println("Vehicle brand: " + this.brand +
                 "\nVehicle License Plate: " + this.licensPlate +
                 "\nVehicle Color: " + this.vehicleColor +
