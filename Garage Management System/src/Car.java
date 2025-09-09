@@ -30,7 +30,7 @@ public class Car extends Vehicle {
     void displayInfoAboutVehicle() {
         System.out.println("Vehicle brand: " + this.getBrand() +
                 "\nVehicle License Plate: " + this.getLicensPlate() +
-                "\nVehicle Color: " + this.getBrand() +
+                "\nVehicle Color: " + this.getVehicleColor() +
                 "\nIs vehicle electric?: " + this.isVehicleElectric +
                 "\nVehicle Door amount: " + this.numbOfDoors);
 

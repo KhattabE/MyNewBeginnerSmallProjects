@@ -47,36 +47,44 @@ public class Main {
         System.out.println("----------------------------------------------------------");
 
 
-        //Menu options
-        System.out.println("You got the following options to choose from: ");
-        System.out.println("1: Add a Vehicle");
-        System.out.println("2: View all Vehicles");
-        System.out.println("3: Search vehicle by license Plate");
-        System.out.println("4: Show vehicle Counts by Type");
-        System.out.println("5: Exit the system");
-        //User input to choose one of the following choices
-        System.out.print("Enter your choice(1-5): ");
-        int optionChoice = scanner.nextInt();
-        System.out.println("----------------------------------------------------------");
-        //To remove new line
-        scanner.nextLine();
+        int optionChoice = -1;
 
-        //A while loop to make sure the user stays inside the range of 1 to 5
-        while ((optionChoice < 1 || optionChoice > 5)) {
-            System.out.print("Enter a valid choice(1-5)!: ");
-            optionChoice = scanner.nextInt();
-            scanner.nextLine();
-        }
+
         System.out.println("----------------------------------------------------------");
 
         //A while loop to keep looping inside the menu, until user enters 5(Exit)
         while (optionChoice != 5) {
+            System.out.println("You got the following options to choose from: ");
+            System.out.println("1: Add a Vehicle");
+            System.out.println("2: View all Vehicles");
+            System.out.println("3: Search vehicle by license Plate");
+            System.out.println("4: Show vehicle Counts by Type");
+            System.out.println("5: Exit the system");
+            //User input to choose one of the following choices
+            System.out.print("Enter your choice(1-5): ");
+            optionChoice = scanner.nextInt();
+            System.out.println("----------------------------------------------------------");
+            //To remove new line
+            scanner.nextLine();
+
+            //A while loop to make sure the user stays inside the range of 1 to 5
+            while ((optionChoice < 1 || optionChoice > 5)) {
+                System.out.print("Enter a valid choice(1-5)!: ");
+                optionChoice = scanner.nextInt();
+                scanner.nextLine();
+            }
 
             switch (optionChoice) {
 
                 case 1 -> addVehicle(scanner); //Method calling addVehicle
 
-                //case 2 ->
+                case 2 -> viewAllVehicles(); //Method calling viewAllVehicles()
+
+                case 3 -> searchVehiclePlate(scanner); //Method calling searchVehiclePlate()
+
+                case 4 -> showVehicleCountByType(scanner); //Method calling showVehicleCountByType()
+
+                case 5 -> System.exit(0);
 
 
             }
@@ -275,10 +283,59 @@ public class Main {
     }
 
 
-    //
+    //Method to view all vehicles
+    public void viewAllVehicles() {
+
+        //An if statement to check is the list is empty
+        if (vehicles.isEmpty()) {
+            System.out.println("The list is empty!");
+            System.out.println("----------------------------------------------------------");
+        } else {
+
+            //Enhanced for loop to loop through the arraylist and get the info
+            for (Vehicle v : vehicles) {
+                v.displayInfoAboutVehicle();
+            }
+        }
+    }
 
 
+    //Method to find vehicle by searching the plate number
+    public void searchVehiclePlate(Scanner scanner) {
+        //Asks the user to enter the plate of the vehicle
+        System.out.print("Enter the plate of the vehicle: ");
+        String searchVehiclePlate = scanner.nextLine();
+        System.out.println("----------------------------------------------------------");
 
+        //For loop to loop through the arraylist and find vehicle by plate (if it exists in the arraylist)
+        for (int i = 0; i < vehicles.size(); i++) {
+            if (searchVehiclePlate.equalsIgnoreCase(vehicles.get(i).getLicensPlate())) {
+                vehicles.get(i).displayInfoAboutVehicle();
+            } else {
+                System.out.println("Vehicle NOT FOUND!");
+                System.out.println("----------------------------------------------------------");
+            }
+        }
+    }
 
+    public void showVehicleCountByType(Scanner scanner){
+        int carCount = 0;
+        int motorcycleCount = 0;
+        int truckCount = 0;
+
+        for (Vehicle v : vehicles) {
+            if (v instanceof Car) {
+                carCount++;
+            } else if (v instanceof Motorcycle) {
+                motorcycleCount++;
+            } else if (v instanceof Truck) {
+                truckCount++;
+            }
+        }
+
+        System.out.println("Total Cars: " + carCount);
+        System.out.println("Total Motorcycles: " + motorcycleCount);
+        System.out.println("Total Trucks: " + truckCount);
+    }
 
 }
