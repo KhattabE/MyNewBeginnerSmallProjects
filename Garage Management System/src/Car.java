@@ -25,6 +25,7 @@ public class Car extends Vehicle {
         this.numbOfDoors = numbOfDoors;
     }
 
+    //Override the parent class displayInfoABoutVehicle method, to add extra info specified to this child class
     @Override
     void displayInfoAboutVehicle() {
         System.out.println("Vehicle brand: " + this.getBrand() +
