@@ -74,7 +74,9 @@ public class Main {
 
             switch (optionChoice) {
 
-                case 1 -> addVehicle(scanner);
+                case 1 -> addVehicle(scanner); //Method calling addVehicle
+
+                //case 2 ->
 
 
             }
@@ -82,6 +84,7 @@ public class Main {
     }
 
 
+    //Method to add vehicles
     public void addVehicle(Scanner scanner) {
         System.out.println("----------------------------------------------------------");
         System.out.print("Which type of car would you like to add(Car, Motorcycle, Truck)?: ");
@@ -215,15 +218,67 @@ public class Main {
             }
 
             Motorcycle motorcyclePicked = new Motorcycle(motorcycleBrand, motorcycleLicensePlate, motorcycleColor, isTheMotorCycleElectric,
-                    hasASideCar );
+                    hasASideCar);
             //Adds the objects info into the arrayList
             vehicles.add(motorcyclePicked);
 
+        } else if (typeOfCarChoice.equalsIgnoreCase("Truck")) {
+
+            System.out.println("----------------------------------------------------------");
+            //Asks the user for truck brand
+            System.out.print("Enter Truck brand: ");
+            String TruckBrand = scanner.nextLine();
+            System.out.println(TruckBrand + " has been added!");
+            System.out.println("----------------------------------------------------------");
+
+            //Asks the user for truck license plate
+            System.out.print("Enter Truck license plate: ");
+            String TruckLicensePlate = scanner.nextLine();
+            System.out.println(TruckLicensePlate + " has been added!");
+            System.out.println("----------------------------------------------------------");
+
+            //Asks for the color of the truck
+            System.out.print("Enter color of Truck:");
+            String TruckColor = scanner.nextLine();
+            System.out.println(TruckColor + " has been added!");
+
+
+            //Asks if the truck is electric
+            boolean isTheTruckElectric = false;
+            System.out.print("Is Truck electric(Yes/No)?: ");
+            String TruckEngineType = scanner.nextLine();
+
+            while (!TruckEngineType.equalsIgnoreCase("Yes") &&
+                    !TruckEngineType.equalsIgnoreCase("No")) {
+                System.out.print("Enter a valid choice(Yes/No)!");
+                TruckEngineType = scanner.nextLine();
+            }
+
+            if (TruckEngineType.equalsIgnoreCase("Yes")) {
+                isTheTruckElectric = true;
+                System.out.print("The truck is electric!");
+            } else if (TruckEngineType.equalsIgnoreCase("No")) {
+                System.out.println("The truck is NOT electric!");
+            }
+
+            //Asks the user for the truck max load capacity
+            System.out.print("What is the max load capacity of the truck: ");
+            double maxLoadCapacity = scanner.nextDouble();
+            scanner.nextLine();
+            System.out.println(maxLoadCapacity + " has been added");
+
+            //Takes the user input from user and passes it into the object constructor
+            Truck truckPicked = new Truck(TruckBrand, TruckLicensePlate, TruckColor, isTheTruckElectric, maxLoadCapacity);
+            //Adds it into the ArrayList
+            vehicles.add(truckPicked);
         }
-
-
-
     }
+
+
+    //
+
+
+
 
 
 }
