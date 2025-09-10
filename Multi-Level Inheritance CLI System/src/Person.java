@@ -34,7 +34,7 @@ public class Person {
 
     public void displayInfo(){
         System.out.println("Person name: " + this.name +
-                "Person age: " + this.age);
+                "\nPerson age: " + this.age);
     }
 
 

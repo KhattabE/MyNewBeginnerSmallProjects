@@ -35,9 +35,9 @@ public class Employee extends Person {
     @Override
     public void displayInfo() {
         System.out.println("Person name: " + this.getName() +
-                "Person age: " + this.getAge() +
-                "Person Employee ID: " + this.employeeId +
-                "Person department: " + this.department);
+                "\nPerson age: " + this.getAge() +
+                "\nPerson Employee ID: " + this.employeeId +
+                "\nPerson department: " + this.department);
 
     }
 

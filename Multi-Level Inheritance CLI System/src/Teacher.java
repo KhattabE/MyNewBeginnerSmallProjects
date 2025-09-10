@@ -37,11 +37,11 @@ public class Teacher extends Employee {
     @Override
     public void displayInfo() {
         System.out.println("Person name: " + this.getName() +
-                "Person age: " + this.getAge() +
-                "Person Employee ID: " + this.getEmployeeId() +
-                "Person department: " + this.getDepartment() +
-                "Teacher subject: " + this.subject +
-                "Is teacher full time?: " + isFullTime);
+                "\nPerson age: " + this.getAge() +
+                "\nPerson Employee ID: " + this.getEmployeeId() +
+                "\nPerson department: " + this.getDepartment() +
+                "\nTeacher subject: " + this.subject +
+                "\nIs teacher full time?: " + isFullTime);
     }
 
 
