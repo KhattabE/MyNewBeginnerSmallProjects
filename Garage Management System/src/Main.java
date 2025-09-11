@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
@@ -18,6 +19,7 @@ public class Main {
         Main app = new Main();
 
         //Method calling menuSystem()
+
         app.menuSystem(scanner);
 
         //Closing the scanner
@@ -48,47 +50,56 @@ public class Main {
 
 
         int optionChoice = -1;
-
-
         System.out.println("----------------------------------------------------------");
+
 
         //A while loop to keep looping inside the menu, until user enters 5(Exit)
         while (optionChoice != 5) {
-            System.out.println("You got the following options to choose from: ");
-            System.out.println("1: Add a Vehicle");
-            System.out.println("2: View all Vehicles");
-            System.out.println("3: Search vehicle by license Plate");
-            System.out.println("4: Show vehicle Counts by Type");
-            System.out.println("5: Exit the system");
-            //User input to choose one of the following choices
-            System.out.print("Enter your choice(1-5): ");
-            optionChoice = scanner.nextInt();
-            System.out.println("----------------------------------------------------------");
-            //To remove new line
-            scanner.nextLine();
-
-            //A while loop to make sure the user stays inside the range of 1 to 5
-            while ((optionChoice < 1 || optionChoice > 5)) {
-                System.out.print("Enter a valid choice(1-5)!: ");
+            try {
+                System.out.println("You got the following options to choose from: ");
+                System.out.println("1: Add a Vehicle");
+                System.out.println("2: View all Vehicles");
+                System.out.println("3: Search vehicle by license Plate");
+                System.out.println("4: Show vehicle Counts by Type");
+                System.out.println("5: Exit the system");
+                //User input to choose one of the following choices
+                System.out.print("Enter your choice(1-5): ");
                 optionChoice = scanner.nextInt();
+                System.out.println("----------------------------------------------------------");
+                //To remove new line
                 scanner.nextLine();
-            }
 
-            switch (optionChoice) {
+                //A while loop to make sure the user stays inside the range of 1 to 5
+                while ((optionChoice < 1 || optionChoice > 5)) {
+                    System.out.print("Enter a valid choice(1-5)!: ");
+                    optionChoice = scanner.nextInt();
+                    scanner.nextLine();
+                }
 
-                case 1 -> addVehicle(scanner); //Method calling addVehicle
+                switch (optionChoice) {
 
-                case 2 -> viewAllVehicles(); //Method calling viewAllVehicles()
+                    case 1 -> addVehicle(scanner); //Method calling addVehicle
 
-                case 3 -> searchVehiclePlate(scanner); //Method calling searchVehiclePlate()
+                    case 2 -> viewAllVehicles(); //Method calling viewAllVehicles()
 
-                case 4 -> showVehicleCountByType(scanner); //Method calling showVehicleCountByType()
+                    case 3 -> searchVehiclePlate(scanner); //Method calling searchVehiclePlate()
 
-                case 5 -> System.exit(0);
+                    case 4 -> showVehicleCountByType(scanner); //Method calling showVehicleCountByType()
+
+                    case 5 -> System.exit(0);
 
 
+                }
+
+
+            } catch (InputMismatchException ime) {
+                System.out.println("Only integers allowed!");
+                scanner.nextLine();
+                System.out.println("----------------------------------------------------------");
             }
         }
+
+
     }
 
 
@@ -114,18 +125,38 @@ public class Main {
             //Asks for the car brand
             System.out.print("Enter car brand: ");
             String carBrand = scanner.nextLine();
+
+            while (carBrand.trim().isEmpty()) {
+                System.out.print("Enter a valid Car brand!: ");
+                carBrand = scanner.nextLine();
+            }
+
             System.out.println(carBrand + " have been added!");
             System.out.println("----------------------------------------------------------");
 
             //Ask for car license plate
             System.out.print("Enter the License plate of the car: ");
             String carLicensePlate = scanner.nextLine();
+
+            while (carLicensePlate.trim().isEmpty()) {
+                System.out.print("Enter a valid license!: ");
+                carLicensePlate = scanner.nextLine();
+            }
+
             System.out.println(carLicensePlate + " have been added!");
             System.out.println("----------------------------------------------------------");
+
 
             //Asks for the color of the car
             System.out.print("Enter car color: ");
             String carColor = scanner.nextLine();
+
+            while (carColor.trim().isEmpty()) {
+                System.out.print("Enter a valid license!: ");
+                carLicensePlate = scanner.nextLine();
+            }
+
+
             System.out.println(carColor + " have been added!");
             System.out.println("----------------------------------------------------------");
 
@@ -133,6 +164,7 @@ public class Main {
             boolean isTheCarElectric = false;
             System.out.print("Is the car electric(yes/no): ");
             String carEngine = scanner.nextLine();
+
 
             //A while loop to make sure the user inputs something valid
             while (!carEngine.equalsIgnoreCase("Yes") && !carEngine.equalsIgnoreCase("No")) {
@@ -147,20 +179,28 @@ public class Main {
                 System.out.println("The car is NOT electric");
             }
 
-            //Asks for how many doors the car has
-            System.out.print("Enter the amount of doors(2 or 4): ");
-            int amountOfDoors = scanner.nextInt();
-            //to remove new line
-            scanner.nextLine();
-            System.out.println(amountOfDoors + " have been added!");
 
-            while (amountOfDoors != 2 && amountOfDoors != 4) {
-                System.out.print("Enter a valid number(2 or 4)!: ");
-                amountOfDoors = scanner.nextInt();
-                //Remove new line
-                scanner.nextLine();
-
+            int amountOfDoors = 0;
+            //boolean to use for the while loop
+            boolean validInput = false;
+            //a while loop that says "While the validInput = true, you can enter the amount of doors and so on, if validInput = false, it will say "Enter a valid number (2 or 4)!"
+            while (!validInput) {
+                //A try catch block to handle exception error that will occur here, if user, uses string instead of inteager (InputMismatchException)
+                try {
+                    System.out.print("Enter the amount of doors (2 or 4): ");
+                    amountOfDoors = scanner.nextInt();
+                    scanner.nextLine(); // Consume newline
+                    if (amountOfDoors == 2 || amountOfDoors == 4) {
+                        validInput = true;
+                    } else {
+                        System.out.println("Enter a valid number (2 or 4)!");
+                    }
+                } catch (InputMismatchException ime) {
+                    System.out.println("You must use an integer!");
+                    scanner.nextLine(); // Clear the invalid input
+                }
             }
+
 
             //Car object that receives the information from the user
             Car carPicked = new Car(carBrand, carLicensePlate, carColor, isTheCarElectric, amountOfDoors);
@@ -269,16 +309,39 @@ public class Main {
                 System.out.println("The truck is NOT electric!");
             }
 
-            //Asks the user for the truck max load capacity
-            System.out.print("What is the max load capacity of the truck: ");
-            double maxLoadCapacity = scanner.nextDouble();
-            scanner.nextLine();
-            System.out.println(maxLoadCapacity + " has been added");
+            double maxLoadCapacity = 0;
+            boolean validInputTruck = true;
+            while (validInputTruck) {
+                try {
+                    //Asks the user for the truck max load capacity
+                    System.out.print("What is the max load capacity of the truck: ");
+                    maxLoadCapacity = scanner.nextDouble();
+                    scanner.nextLine();
+                    if (maxLoadCapacity < 0) {
+                        System.out.println("----------------------------------------------------------");
+                        System.out.println("You cant enter negativ load!");
+                        System.out.print("Try again!: ");
+                        maxLoadCapacity = scanner.nextDouble();
+                        validInputTruck = false;
+                    } else {
+
+                        System.out.println(maxLoadCapacity + " has been added");
+                        System.out.println("----------------------------------------------------------");
+                    }
+
+                } catch (InputMismatchException ime) {
+                    System.out.println("Only double data type is allowed!");
+                    scanner.nextLine();
+                }
+            }
+
 
             //Takes the user input from user and passes it into the object constructor
             Truck truckPicked = new Truck(TruckBrand, TruckLicensePlate, TruckColor, isTheTruckElectric, maxLoadCapacity);
             //Adds it into the ArrayList
             vehicles.add(truckPicked);
+
+
         }
     }
 
@@ -318,7 +381,7 @@ public class Main {
         }
     }
 
-    public void showVehicleCountByType(Scanner scanner){
+    public void showVehicleCountByType(Scanner scanner) {
         int carCount = 0;
         int motorcycleCount = 0;
         int truckCount = 0;
