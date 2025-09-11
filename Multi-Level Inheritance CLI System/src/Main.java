@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
@@ -45,40 +46,50 @@ public class Main {
 
         //While loop to be able to keep looping through the menu, as long as user does not enter 5(For Exit)
         while (optionChoice != 5) {
+            //Try catch, for exception handling (InputMismatchException), so only integers are allowed
+            try {
+                while (optionChoice < 1 || optionChoice > 5) {
+                    System.out.println("You got the following options: ");
+                    System.out.println("1: Add a teacher");
+                    System.out.println("2: View all Teachers");
+                    System.out.println("3: Search teacher by ID");
+                    System.out.println("4: Count teachers by subject");
+                    System.out.println("5: Exit");
+                    System.out.print("Enter your choice: ");
+                    //Scanner for user choicer
+                    optionChoice = scanner.nextInt();
+                    //removes new line
+                    scanner.nextLine();
+                    System.out.println("----------------------------------------------------------------------");
+                }
 
-            while (optionChoice < 1 || optionChoice > 5) {
-                System.out.println("You got the following options: ");
-                System.out.println("1: Add a teacher");
-                System.out.println("2: View all Teachers");
-                System.out.println("3: Search teacher by ID");
-                System.out.println("4: Count teachers by subject");
-                System.out.println("5: Exit");
-                System.out.print("Enter your choice: ");
-                //Scanner for user choicer
-                optionChoice = scanner.nextInt();
-                //removes new line
-                scanner.nextLine();
+
+                //Switch case that will take effect based on the user input
+                switch (optionChoice) {
+
+                    case 1 -> addTeacher(scanner);
+
+                    case 2 -> viewAllTeachers();
+
+                    case 3 -> searchTeacherByID(scanner);
+
+                    case 4 -> CountTeachersBySubject(scanner);
+
+                    case 5 -> System.exit(0);
+
+
+                }
+
+                optionChoice = -1;
+
+            } catch (InputMismatchException ime) {
                 System.out.println("----------------------------------------------------------------------");
+                System.out.println("Only integers allowed!");
+                System.out.println("----------------------------------------------------------------------");
+                //Clears new line
+                scanner.nextLine();
             }
 
-
-            //Switch case that will take effect based on the user input
-            switch (optionChoice) {
-
-                case 1 -> addTeacher(scanner);
-
-                case 2 -> viewAllTeachers();
-
-                case 3 -> searchTeacherByID(scanner);
-
-                case 4 -> CountTeachersBySubject(scanner);
-
-                case 5 -> System.exit(0);
-
-
-            }
-
-            optionChoice = -1;
         }
     }
 
@@ -101,35 +112,68 @@ public class Main {
 
 
         //Asks to add teacher age
-        System.out.print("Add teacher age: ");
-        int teacherAge = scanner.nextInt();
+        //TeacherAge has a value of 0 to begin with, so the variable can works inside the try catch block
+        int teacherAge = 0;
+        //A variable of data type boolean, sat to false. will be used to break out of the while loop, when isValid = false
+        boolean isValid = false;
+        //
+        while (!isValid) {
+            try {
+                //isValid is sat to true, because the while loop says !isValid (which is true since isValid is sat to false before)
+                isValid = true;
+                System.out.print("Add teacher age: ");
+                teacherAge = scanner.nextInt();
 
-        //While loop to make sure the user does not pick an age under 18
-        while (teacherAge < 18) {
-            System.out.println("No teacher is under the age of 18!");
-            System.out.print("Enter a valid age(18+)!: ");
-            teacherAge = scanner.nextInt();
+                //While loop to make sure the user does not pick an age under 18
+                while (teacherAge < 18) {
+                    System.out.println("No teacher is under the age of 18!");
+                    System.out.print("Enter a valid age(18+)!: ");
+                    teacherAge = scanner.nextInt();
+                }
+
+                System.out.println(teacherAge + " has been added");
+                scanner.nextLine();
+                System.out.println("----------------------------------------------------------------------");
+
+            } catch (InputMismatchException ime) {
+                System.out.println("Age can only be integer!");
+                //Clear new line
+                scanner.nextLine();
+                isValid = false;
+            }
         }
 
-        System.out.println(teacherAge + " has been added");
-        scanner.nextLine();
-        System.out.println("----------------------------------------------------------------------");
 
+        //TeacherID has a value of 0 to begin with, so the variable can works inside the try catch block
+        int teacherID = 0;
+        boolean idIsValid = false;
+        while (!idIsValid) {
+            try {
+                idIsValid = true;
+                //Asks for ID
+                System.out.print("Enter teacher ID: ");
+                teacherID = scanner.nextInt();
 
-        //Asks for ID
-        System.out.print("Enter teacher ID: ");
-        int teacherID = scanner.nextInt();
+                //While loop to make sure the user cant use negativ numbers
+                while (teacherID < 0) {
+                    System.out.println("ID CAN NOT BE NEGATIVE!");
+                    System.out.print("Enter a valid ID!: ");
+                    teacherID = scanner.nextInt();
+                }
 
-        //While loop to make sure the user cant use negativ numbers
-        while (teacherID < 0) {
-            System.out.println("ID CAN NOT BE NEGATIVE!");
-            System.out.print("Enter a valid ID!: ");
-            teacherID = scanner.nextInt();
+                System.out.println(teacherID + " has been added");
+                scanner.nextLine();
+                System.out.println("----------------------------------------------------------------------");
+
+            }catch (InputMismatchException ime){
+                System.out.println("ID ONLY ALLOWS INTEGER!");
+                //Clears new line
+                scanner.nextLine();
+                idIsValid = false;
+
+            }
         }
 
-        System.out.println(teacherID + " has been added");
-        scanner.nextLine();
-        System.out.println("----------------------------------------------------------------------");
 
         //Asks for department
         System.out.print("Enter teacher department: ");
@@ -239,8 +283,7 @@ public class Main {
     }
 
 
-
-    public void CountTeachersBySubject(Scanner scanner){
+    public void CountTeachersBySubject(Scanner scanner) {
 
         //Variables that will count how much of these subjects appear
         int mathCount = 0;
@@ -251,17 +294,17 @@ public class Main {
         System.out.print("Enter teach subject: ");
         String teacherSubject = scanner.nextLine();
 
-        for(int i = 0; i < teachers.size(); i++){
-            if(teacherSubject.equalsIgnoreCase("Math")){
+        for (int i = 0; i < teachers.size(); i++) {
+            if (teacherSubject.equalsIgnoreCase("Math")) {
                 mathCount++;
                 System.out.println(mathCount + " Teachers have the subject Maths");
             }
-            if(teacherSubject.equalsIgnoreCase("English")){
+            if (teacherSubject.equalsIgnoreCase("English")) {
                 englishCount++;
                 System.out.println(englishCount + " Teachers have the subject English");
             }
 
-            if(teacherSubject.equalsIgnoreCase("History")){
+            if (teacherSubject.equalsIgnoreCase("History")) {
                 historyCount++;
                 System.out.println(historyCount + " Teachers have the subject History");
             }
@@ -273,13 +316,10 @@ public class Main {
             System.out.println("----------------------------------------------------------------------");
 
 
-
-
         }
 
 
     }
-
 
 
 }
